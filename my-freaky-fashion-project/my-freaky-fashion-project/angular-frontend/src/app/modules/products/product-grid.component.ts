@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 import { ProductService } from 'src/app/core/product.service';
+import { CartService } from 'src/app/core/cart.service'; // ✅ Add this
 import { Product } from 'src/app/core/product.model';
 
 @Component({
@@ -9,7 +11,7 @@ import { Product } from 'src/app/core/product.model';
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule] // ✅ Now supports [routerLink]
+  imports: [CommonModule, RouterModule]
 })
 export class ProductGridComponent implements OnInit {
   @Input() searchTerm: string = '';
@@ -18,23 +20,23 @@ export class ProductGridComponent implements OnInit {
   loading: boolean = true;
   error: string = '';
 
-  // Emulates "justAdded" state similar to React's useState hook.
   justAdded: { [key: number]: boolean } = {};
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService // ✅ Inject CartService
+  ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
   }
 
-  // Filter products based on the search term.
   get filteredProducts(): Product[] {
     return this.products.filter((p) =>
       p.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
-  // Fetch products from the backend via ProductService.
   fetchProducts(): void {
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
@@ -48,21 +50,20 @@ export class ProductGridComponent implements OnInit {
     });
   }
 
-  // Handle add-to-cart action (replace with real cart logic later).
+  // ✅ Add the product to the cart and trigger justAdded
   handleAddToCart(product: Product): void {
+    this.cartService.addToCart({ ...product, quantity: 1 });
     this.justAdded[product.id] = true;
     setTimeout(() => {
       this.justAdded[product.id] = false;
     }, 2000);
   }
 
-  // Transform a local image URL to a full URL for display.
   transformUrl(url: string | undefined): string {
     if (!url) return '';
     return url.startsWith('/product-images') ? `http://localhost:3000${url}` : url;
   }
 
-  // ✅ Used in *ngFor to optimize rendering
   trackByProductId(index: number, product: Product): number {
     return product.id;
   }
