@@ -1,0 +1,74 @@
+<!-- Header component -->
+<app-header></app-header>
+
+<!-- Loading, Error, or No Product message -->
+<div *ngIf="loading" class="product-detail">Laddar produkt...</div>
+<div *ngIf="error" class="product-detail">Fel: {{ error }}</div>
+<div *ngIf="!loading && !error && !product" class="product-detail">
+  Ingen produkt hittades.
+</div>
+
+<!-- Main product detail section -->
+<section *ngIf="product" class="product-detail">
+  <div class="product-detail-image">
+    <ng-container *ngIf="mainImage; else noImage">
+      <img [src]="mainImage" [alt]="product.name">
+    </ng-container>
+    <ng-template #noImage>
+      <div class="no-image">Ingen bild</div>
+    </ng-template>
+  </div>
+
+  <div class="product-detail-info">
+    <h1>{{ product.name }}</h1>
+    <p class="product-price">{{ product.price }} SEK</p>
+    <p class="product-description">{{ product.description }}</p>
+
+    <button (click)="handleAddToCart()"
+            [ngClass]="{'add-to-cart-btn': true, 'added': justAdded}">
+      <ng-container *ngIf="justAdded; else notAdded">
+         <span class="checkmark">✔</span> Tillagd i kundvagn
+      </ng-container>
+      <ng-template #notAdded>
+         Lägg i varukorg
+      </ng-template>
+    </button>
+
+    <!-- Thumbnails row if multiple images exist -->
+    <div *ngIf="allImages.length > 1" class="product-thumbnails">
+      <img *ngFor="let url of allImages; let idx = index"
+           [src]="url"
+           [alt]="'Thumbnail ' + (idx + 1)"
+           class="product-thumb"
+           (click)="selectImage(url)">
+    </div>
+  </div>
+</section>
+
+<!-- Related products (simplified carousel) -->
+<section class="related-products">
+  <h2>Liknande produkter</h2>
+  <div *ngIf="relatedProducts.length === 0">
+    Inga relaterade produkter att visa.
+  </div>
+  <div *ngIf="relatedProducts.length > 0" class="carousel">
+    <!-- Previous slide button -->
+    <button class="prev-btn" (click)="prevSlide()">‹</button>
+
+    <!-- Display the currently active slide -->
+    <div class="carousel-slide">
+      <a [routerLink]="['/products', relatedProducts[currentSlide].slug]">
+        <img [src]="relatedProducts[currentSlide].imageUrl || '/placeholder.png'"
+             [alt]="relatedProducts[currentSlide].name" class="carousel-img">
+        <h4>{{ relatedProducts[currentSlide].name }}</h4>
+        <p>{{ relatedProducts[currentSlide].price }} SEK</p>
+      </a>
+    </div>
+
+    <!-- Next slide button -->
+    <button class="next-btn" (click)="nextSlide()">›</button>
+  </div>
+</section>
+
+<!-- Footer component -->
+<app-footer></app-footer>

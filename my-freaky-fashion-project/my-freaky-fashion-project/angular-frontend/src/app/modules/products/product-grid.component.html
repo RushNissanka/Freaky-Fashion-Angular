@@ -1,0 +1,50 @@
+<!-- 📦 Product Grid Component Template -->
+<div class="product-grid">
+  <!-- ⏳ Loading / ⚠ Error States -->
+  <div *ngIf="loading">⏳ Loading products...</div>
+  <div *ngIf="error">⚠ {{ error }}</div>
+
+  <!-- 📦 Product Cards -->
+  <div
+    *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+    class="product-card"
+  >
+    <!-- 👇 Product Info Clickable Link -->
+    <a [routerLink]="['/products', product.slug]" class="product-link">
+      <!-- 🖼 Image Wrapper -->
+      <div class="image-wrapper">
+        <img
+          class="main-img"
+          *ngIf="product.imageUrl"
+          [src]="transformUrl(product.imageUrl)"
+          [alt]="product.name"
+        />
+        <div class="no-image" *ngIf="!product.imageUrl">🖼 No image</div>
+
+        <img
+          class="hover-img"
+          *ngIf="product.imageUrl2"
+          [src]="transformUrl(product.imageUrl2)"
+          [alt]="product.name + ' alt2'"
+        />
+      </div>
+
+      <!-- 📝 Product Text -->
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.price }} SEK</p>
+    </a>
+
+    <!-- 🛒 Add to Cart Button -->
+    <button
+      (click)="handleAddToCart(product); $event.stopPropagation()"
+      [ngClass]="{ 'add-to-cart-btn': true, 'added': justAdded[product.id] }"
+    >
+      <ng-container *ngIf="justAdded[product.id]; else notAdded">
+        <span class="checkmark">✔</span> Tillagd i kundvagn
+      </ng-container>
+      <ng-template #notAdded>
+        Lägg i varukorg
+      </ng-template>
+    </button>
+  </div>
+</div>

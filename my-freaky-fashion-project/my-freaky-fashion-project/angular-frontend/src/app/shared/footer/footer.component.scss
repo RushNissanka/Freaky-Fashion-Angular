@@ -1,0 +1,42 @@
+/* footer.component.scss */
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 1rem;
+    margin-top: auto; // Ensures footer stays at the bottom (if using flex layout)
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-links span {
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .footer p {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* Responsive Styles for screens 1024px and wider */
+  @media (min-width: 1024px) {
+    .footer {
+      padding: 2rem;
+    }
+  
+    .footer-links {
+      gap: 2rem;
+    }
+  
+    .footer p {
+      font-size: 1rem;
+    }
+  }
+  

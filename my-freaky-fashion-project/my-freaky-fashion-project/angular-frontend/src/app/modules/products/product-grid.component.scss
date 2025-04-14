@@ -1,0 +1,106 @@
+/* Base layout for the grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem;
+    padding-bottom: 50px;
+    width: 100%;
+    margin: 0 auto;
+    justify-items: center;
+    box-sizing: border-box;
+  
+    // Responsive grid columns
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Product card styling */
+  .product-card {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #fff;
+  
+    h2,
+    p {
+      overflow-wrap: break-word;
+    }
+    h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    p {
+      font-weight: bold;
+      padding-bottom: 0.5rem;
+    }
+  }
+  
+  /* Product image container */
+  .product-image {
+    width: 100%;
+    background-color: #fff;
+    margin: 0 auto;
+  
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+  }
+  
+  /* Add-to-cart button styles */
+  .add-to-cart-btn {
+    background-color: #000000;
+    color: #ffffff;
+  
+    &.added {
+      background-color: #d4f8d4;
+      border-color: #2b7a2b;
+      color: #2b7a2b;
+    }
+  }
+  
+  /* Checkmark style in button */
+  .checkmark {
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #2b7a2b;
+  }
+  
+  /* Hover image logic within image-wrapper */
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+  
+    .main-img,
+    .hover-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: opacity 0.3s ease;
+    }
+  
+    .hover-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+  
+    &:hover {
+      .main-img {
+        opacity: 0;
+      }
+      .hover-img {
+        opacity: 1;
+      }
+    }
+  }
+  

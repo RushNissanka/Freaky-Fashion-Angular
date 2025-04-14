@@ -1,0 +1,221 @@
+/* ========================
+   Default (medium screens)
+   ======================== */
+   .product-detail {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    margin-top: 8%; /* If you prefer less top gap, lower this */
+    padding: 0 2rem;
+    font-family: sans-serif;
+  }
+  
+  /* Main image container */
+  .product-detail-image {
+    width: 400px;
+    height: 600px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .product-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Thumbnails (stacked by default) */
+  .product-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .product-thumb {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Product info */
+  .product-detail-info {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* ========================
+     Related Products & Simple Carousel
+     ======================== */
+  .related-products {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: sans-serif;
+  }
+  
+  .related-products h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.5rem;
+    text-align: left;
+  }
+  
+  /* Simple Carousel Styles */
+  .carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .carousel-slide {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .carousel-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+  
+  .prev-btn,
+  .next-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #9d999f;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.5rem;
+  }
+  
+  .prev-btn {
+    left: 10px;
+  }
+  
+  .next-btn {
+    right: 10px;
+  }
+  
+  .prev-btn:hover,
+  .next-btn:hover {
+    color: #666;
+  }
+  
+  /* ========================
+     Responsive Styles
+     ======================== */
+  
+  /* Small Screens (< 768px) */
+  @media (max-width: 767px) {
+    .product-detail {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5rem; /* reduce if you want less top gap */
+    }
+  
+    .product-detail-image {
+      width: 80%;
+      max-width: 400px;
+      height: auto; /* let image height adjust */
+    }
+  
+    .product-thumbnails {
+      flex-direction: row;
+      margin-top: 1rem;
+      gap: 0.5rem;
+    }
+  
+    .product-thumb {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .product-detail-info {
+      width: 100%;
+      text-align: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+  }
+  
+  /* Medium Screens (768px–1199px) */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .product-detail {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 2rem;
+      max-width: 1000px; /* or 100% if you prefer */
+      margin: 3rem auto; /* adjust top gap as needed */
+    }
+  
+    .product-detail-image {
+      width: 350px;
+      height: 525px; /* proportionally smaller than 400×600 */
+    }
+  
+    .product-thumbnails {
+      flex-direction: row;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  
+    .product-thumb {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .product-detail-info {
+      max-width: 500px;
+      text-align: left;
+      align-items: flex-start;
+      margin-top: 0;
+    }
+  }
+  
+  /* Large Screens (>= 1200px) */
+  @media (min-width: 1200px) {
+    .product-detail {
+      /* Keep horizontal layout, use the full width nicely */
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 1200px; /* or 100% if you prefer */
+      margin-top: 5%; /* optional to reduce empty space up top */
+    }
+  
+    .product-thumbnails {
+      flex-direction: row;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  
+    .product-thumb {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .product-detail-info {
+      max-width: 600px;
+      text-align: left;
+      align-items: flex-start;
+      margin-top: 0;
+    }
+  }
+  
