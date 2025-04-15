@@ -19,6 +19,24 @@ export const routes: Routes = [
       )
   },
 
+  // 🛒 Lazy-loaded Cart Page
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./modules/cart/cart.component').then(
+        (m) => m.CartComponent
+      )
+  },
+
+  // 💳 Lazy-loaded Checkout Page
+  {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./modules/checkout/checkout.component').then(
+        (m) => m.CheckoutComponent
+      )
+  },
+
   // 🛠 Admin Routes
   { path: 'admin/products', component: ProductsListComponent },
   { path: 'admin/new', component: NewProductComponent }

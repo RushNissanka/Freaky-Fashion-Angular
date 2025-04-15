@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { ProductService } from 'src/app/core/product.service';
-import { CartService } from 'src/app/core/cart.service'; // ✅ Add this
+import { CartService } from 'src/app/core/cart.service';
 import { Product } from 'src/app/core/product.model';
 
 @Component({
@@ -24,7 +24,7 @@ export class ProductGridComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService // ✅ Inject CartService
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -50,9 +50,15 @@ export class ProductGridComponent implements OnInit {
     });
   }
 
-  // ✅ Add the product to the cart and trigger justAdded
   handleAddToCart(product: Product): void {
-    this.cartService.addToCart({ ...product, quantity: 1 });
+    this.cartService.addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      quantity: 1
+    });
+  
     this.justAdded[product.id] = true;
     setTimeout(() => {
       this.justAdded[product.id] = false;

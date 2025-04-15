@@ -1,0 +1,48 @@
+<h1>Varukorgen</h1>
+
+<table *ngIf="cart.length > 0; else emptyCart">
+  <thead>
+    <tr>
+      <th>Bild</th>
+      <th>Produkt</th>
+      <th>Pris</th>
+      <th>Totalt</th>
+      <th>Antal</th>
+      <th>Ta bort</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of cart">
+      <td data-label="Bild">
+        <img
+          [src]="item.imageUrl || '/assets/placeholder.png'"
+          alt="{{ item.name }}"
+          class="cart-thumbnail"
+        />
+      </td>
+      <td data-label="Produkt">{{ item.name }}</td>
+      <td data-label="Pris">{{ item.price }} kr</td>
+      <td data-label="Totalt">{{ item.price * item.quantity }} kr</td>
+      <td data-label="Antal">
+        <input
+          type="number"
+          [value]="item.quantity"
+          min="1"
+          (input)="updateQuantity(item.id, $any($event.target).value)"
+        />
+      </td>
+      <td data-label="Ta bort">
+        <button (click)="removeItem(item.id)">🗑</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #emptyCart>
+  <p>Din varukorg är tom.</p>
+</ng-template>
+
+<div *ngIf="cart.length > 0" class="summary">
+  <p><strong>Totalt:</strong> {{ totalPrice }} kr</p>
+  <button (click)="goToCheckout()">Till kassan</button>
+</div>

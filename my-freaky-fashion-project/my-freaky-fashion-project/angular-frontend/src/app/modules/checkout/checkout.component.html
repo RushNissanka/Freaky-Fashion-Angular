@@ -1,0 +1,59 @@
+<section class="checkout-container">
+    <h1>Kassan</h1>
+    <p>Antal varor: {{ totalItems }}</p>
+  
+    <div class="checkout-layout">
+      <!-- LEFT: Form -->
+      <form class="checkout-form" (ngSubmit)="handleSubmit()">
+        <h2>Kunduppgifter</h2>
+  
+        <label>Namn:</label>
+        <input [(ngModel)]="name" name="name" required />
+  
+        <label>E-post:</label>
+        <input type="email" [(ngModel)]="email" name="email" required />
+  
+        <label>Adress:</label>
+        <input [(ngModel)]="address" name="address" required />
+  
+        <label>Telefon:</label>
+        <input [(ngModel)]="phone" name="phone" required />
+  
+        <h3>Frakt</h3>
+        <label>
+          <input type="radio" name="shipping" value="standard" [(ngModel)]="shippingMethod" /> Standard (49 SEK)
+        </label>
+        <label>
+          <input type="radio" name="shipping" value="express" [(ngModel)]="shippingMethod" /> Express (99 SEK)
+        </label>
+  
+        <h3>Betalning</h3>
+        <label>
+          <input type="radio" name="payment" value="card" [(ngModel)]="paymentMethod" /> Kort
+        </label>
+        <label>
+          <input type="radio" name="payment" value="invoice" [(ngModel)]="paymentMethod" /> Faktura
+        </label>
+  
+        <button class="checkout-button" type="submit">Slutför köp</button>
+      </form>
+  
+      <!-- RIGHT: Order summary -->
+      <div class="checkout-summary">
+        <h2>Orderöversikt</h2>
+        <div *ngFor="let item of cart" class="summary-row">
+          <span>{{ item.name }} x {{ item.quantity }}</span>
+          <span>{{ item.price * item.quantity | number:'1.2-2' }} SEK</span>
+        </div>
+        <div class="summary-row">
+          <span>Frakt:</span>
+          <span>{{ shippingCost }} SEK</span>
+        </div>
+        <div class="summary-row total">
+          <strong>Totalt:</strong>
+          <strong>{{ totalPrice + shippingCost | number:'1.2-2' }} SEK</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+  
