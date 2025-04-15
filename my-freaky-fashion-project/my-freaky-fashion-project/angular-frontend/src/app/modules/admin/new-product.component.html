@@ -1,0 +1,49 @@
+<div class="new-product">
+    <h2>Create New Product</h2>
+    <div *ngIf="errorMsg" style="color: red">{{ errorMsg }}</div>
+  
+    <form (ngSubmit)="handleSubmit()">
+      <label>
+        Name (required):
+        <input name="name" [(ngModel)]="formData.name" required />
+      </label>
+  
+      <label>
+        Description:
+        <input name="description" [(ngModel)]="formData.description" />
+      </label>
+  
+      <label>
+        Price (required):
+        <input name="price" type="number" [(ngModel)]="formData.price" required />
+      </label>
+  
+      <label>
+        SKU:
+        <input name="sku" [(ngModel)]="formData.sku" />
+      </label>
+  
+      <label>
+        Image URL:
+        <input name="imageUrl" [(ngModel)]="formData.imageUrl" />
+      </label>
+  
+      <label>
+        Or Upload Image:
+        <input type="file" (change)="handleFileChange($event)" />
+      </label>
+  
+      <label>
+        Publish Date:
+        <input type="date" [(ngModel)]="formData.publishDate" />
+      </label>
+  
+      <label>
+        Slug:
+        <input name="slug" [(ngModel)]="formData.slug" placeholder="Auto-generated if blank" />
+      </label>
+  
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+  

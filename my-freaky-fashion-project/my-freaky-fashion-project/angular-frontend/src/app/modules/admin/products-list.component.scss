@@ -1,0 +1,53 @@
+.products-list {
+    max-width: 1200px;
+    overflow-x: auto; // Allows horizontal scrolling if needed
+    overflow-y: auto; // Allows vertical scrolling if needed
+  
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #333;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      table-layout: fixed; // Crucial for consistent row heights
+    }
+  
+    tr {
+      max-height: 150px;
+      overflow: hidden; // Hides content that doesn’t fit
+    }
+  
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+      overflow: hidden;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+  
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  
+    // Clamp description inside a cell
+    .description-cell {
+      display: inline-block;
+      width: 100%;
+      max-height: 150px;
+    }
+  }
+  

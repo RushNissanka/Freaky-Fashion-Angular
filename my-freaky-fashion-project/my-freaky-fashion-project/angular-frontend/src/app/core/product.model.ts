@@ -1,4 +1,3 @@
-// src/app/core/product.model.ts
 export interface Product {
   id: number;
   slug: string;
@@ -10,4 +9,9 @@ export interface Product {
   imageUrl3?: string;
   imageUrl4?: string;
   imageUrl5?: string;
+
+  // 🆕 Add these missing fields
+  sku?: string;
+  publishDate?: string;
+  sortOrder?: number;
 }

@@ -1,0 +1,132 @@
+<div class="products-list">
+  <h2>All Products</h2>
+
+  <div *ngIf="loading">Loading products...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>Main Image</th>
+        <th>Image 2</th>
+        <th>Image 3</th>
+        <th>Image 4</th>
+        <th>Image 5</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>SKU</th>
+        <th>Price</th>
+        <th>Slug</th>
+        <th>Publish Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index"
+          draggable="true"
+          (dragstart)="handleDragStart($event, i)"
+          (dragover)="handleDragOver($event)"
+          (drop)="handleDrop($event, i)">
+
+        <!-- Images -->
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else imageUrlView">
+            <input [(ngModel)]="editFormData.imageUrl" name="imageUrl">
+          </ng-container>
+          <ng-template #imageUrlView>
+            <img *ngIf="product.imageUrl" [src]="product.imageUrl" width="50" alt="Main" />
+          </ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else imageUrl2View">
+            <input [(ngModel)]="editFormData.imageUrl2" name="imageUrl2">
+          </ng-container>
+          <ng-template #imageUrl2View>
+            <img *ngIf="product.imageUrl2" [src]="product.imageUrl2" width="50" alt="Image 2" />
+          </ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else imageUrl3View">
+            <input [(ngModel)]="editFormData.imageUrl3" name="imageUrl3">
+          </ng-container>
+          <ng-template #imageUrl3View>
+            <img *ngIf="product.imageUrl3" [src]="product.imageUrl3" width="50" alt="Image 3" />
+          </ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else imageUrl4View">
+            <input [(ngModel)]="editFormData.imageUrl4" name="imageUrl4">
+          </ng-container>
+          <ng-template #imageUrl4View>
+            <img *ngIf="product.imageUrl4" [src]="product.imageUrl4" width="50" alt="Image 4" />
+          </ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else imageUrl5View">
+            <input [(ngModel)]="editFormData.imageUrl5" name="imageUrl5">
+          </ng-container>
+          <ng-template #imageUrl5View>
+            <img *ngIf="product.imageUrl5" [src]="product.imageUrl5" width="50" alt="Image 5" />
+          </ng-template>
+        </td>
+
+        <!-- Info fields -->
+        <td>{{ product.id }}</td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else nameView">
+            <input [(ngModel)]="editFormData.name" name="name">
+          </ng-container>
+          <ng-template #nameView>{{ product.name }}</ng-template>
+        </td>
+
+        <td class="description-cell">
+          <ng-container *ngIf="editingSlug === product.slug; else descView">
+            <input [(ngModel)]="editFormData.description" name="description">
+          </ng-container>
+          <ng-template #descView>{{ product.description }}</ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else skuView">
+            <input [(ngModel)]="editFormData.sku" name="sku">
+          </ng-container>
+          <ng-template #skuView>{{ product.sku }}</ng-template>
+        </td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else priceView">
+            <input [(ngModel)]="editFormData.price" name="price" type="number">
+          </ng-container>
+          <ng-template #priceView>{{ product.price }} SEK</ng-template>
+        </td>
+
+        <td>{{ product.slug }}</td>
+
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else dateView">
+            <input [(ngModel)]="editFormData.publishDate" name="publishDate" type="date">
+          </ng-container>
+          <ng-template #dateView>{{ product.publishDate }}</ng-template>
+        </td>
+
+        <!-- Actions -->
+        <td>
+          <ng-container *ngIf="editingSlug === product.slug; else actionView">
+            <button (click)="handleSave()">Save</button>
+            <button (click)="handleCancel()">Cancel</button>
+          </ng-container>
+          <ng-template #actionView>
+            <button (click)="handleEdit(product)">Edit</button>
+            <button (click)="handleDelete(product.slug)">Delete</button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
