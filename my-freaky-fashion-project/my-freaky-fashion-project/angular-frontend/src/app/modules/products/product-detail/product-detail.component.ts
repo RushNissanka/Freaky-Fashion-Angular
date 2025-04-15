@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
@@ -21,15 +21,17 @@ import { FooterComponent } from 'src/app/shared/footer/footer.component';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   product!: Product;
   mainImage!: string;
   relatedProducts: Product[] = [];
+  visibleProducts: Product[] = [];
   loading = true;
   error = '';
   justAdded = false;
 
   currentSlide: number = 0;
+  itemsPerSlide: number = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +55,29 @@ export class ProductDetailComponent implements OnInit {
         }
       });
     }
+
+    this.updateItemsPerSlide();
+    window.addEventListener('resize', this.updateItemsPerSlide.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.updateItemsPerSlide.bind(this));
+  }
+
+  updateItemsPerSlide(): void {
+    const width = window.innerWidth;
+    if (width >= 1400) {
+      this.itemsPerSlide = 5;
+    } else if (width >= 1200) {
+      this.itemsPerSlide = 4;
+    } else if (width >= 900) {
+      this.itemsPerSlide = 3;
+    } else if (width >= 600) {
+      this.itemsPerSlide = 2;
+    } else {
+      this.itemsPerSlide = 1;
+    }
+    this.updateVisibleProducts();
   }
 
   fetchRelatedProducts(): void {
@@ -60,12 +85,33 @@ export class ProductDetailComponent implements OnInit {
       next: (products) => {
         this.relatedProducts = products
           .filter(p => p.id !== this.product.id)
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 5);
+          .sort(() => 0.5 - Math.random());
         this.currentSlide = 0;
+        this.updateVisibleProducts();
       },
       error: (err) => console.error('Error fetching related products:', err)
     });
+  }
+
+  updateVisibleProducts(): void {
+    const start = this.currentSlide * this.itemsPerSlide;
+    const end = start + this.itemsPerSlide;
+    this.visibleProducts = this.relatedProducts.slice(start, end);
+  }
+
+  prevSlide(): void {
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
+      this.updateVisibleProducts();
+    }
+  }
+
+  nextSlide(): void {
+    const maxSlide = Math.ceil(this.relatedProducts.length / this.itemsPerSlide) - 1;
+    if (this.currentSlide < maxSlide) {
+      this.currentSlide++;
+      this.updateVisibleProducts();
+    }
   }
 
   handleAddToCart(): void {
@@ -88,19 +134,7 @@ export class ProductDetailComponent implements OnInit {
     ].filter((url): url is string => !!url);
   }
 
-  prevSlide(): void {
-    if (this.relatedProducts.length > 0) {
-      this.currentSlide = (this.currentSlide - 1 + this.relatedProducts.length) % this.relatedProducts.length;
-    }
-  }
-
-  nextSlide(): void {
-    if (this.relatedProducts.length > 0) {
-      this.currentSlide = (this.currentSlide + 1) % this.relatedProducts.length;
-    }
-  }
-
   dummySearchChange(): void {
-    // Placeholder if needed
+    // Placeholder
   }
 }

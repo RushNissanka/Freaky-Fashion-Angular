@@ -1,97 +1,130 @@
-/* ========================
-   Default (medium screens)
-   ======================== */
-   .product-detail {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
-    max-width: 1400px;
-    margin: 2rem auto;
-    margin-top: 8%; /* If you prefer less top gap, lower this */
-    padding: 0 2rem;
-    font-family: sans-serif;
-  }
-  
-  /* Main image container */
-  .product-detail-image {
-    width: 400px;
-    height: 600px;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .product-detail-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Thumbnails (stacked by default) */
-  .product-thumbnails {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .product-thumb {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  /* Product info */
-  .product-detail-info {
-    flex: 1;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  /* ========================
-     Related Products & Simple Carousel
-     ======================== */
-  .related-products {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    font-family: sans-serif;
-  }
-  
-  .related-products h2 {
-    margin: 2.5rem 0 1rem;
-    font-size: 1.5rem;
-    text-align: left;
-  }
-  
-  /* Simple Carousel Styles */
-  .carousel {
+section.product-detail {
+  margin-top: 5%; 
+}
+
+.product-detail-info h1 {
+  margin-top: 5%;
+  font-size: 1.8rem;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex-wrap: wrap; // Responsive fallback
+}
+
+/* Main product image */
+.product-detail-image {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 0; // remove any default margin
+  padding-top: 0;
+  background-color: transparent; // remove background box if not needed
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 100%; // Ensures the image respects container height
+}
+
+/* Right side info panel */
+.product-detail-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 280px;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Button */
+.add-to-cart-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.add-to-cart-btn.added {
+  background-color: #d4f8d4;
+  color: #2b7a2b;
+}
+
+.checkmark {
+  margin-right: 0.4rem;
+}
+
+
+   .carousel {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+
+  
+  .carousel-track {
+    display: grid;
+    grid-auto-flow: column;
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
   }
   
   .carousel-slide {
-    width: 100%;
     text-align: center;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Link inside slide */
+  .carousel-slide a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .carousel-slide a:hover {
+    color: #555;
   }
   
   .carousel-img {
     width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     object-fit: contain;
     margin-bottom: 0.5rem;
   }
   
+  /* Buttons */
   .prev-btn,
   .next-btn {
     background: none;
@@ -119,103 +152,105 @@
     color: #666;
   }
   
-  /* ========================
-     Responsive Styles
-     ======================== */
+/* ========================
+   Product Thumbnails (Image 2–5)
+   ======================== */
+   .product-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
   
-  /* Small Screens (< 768px) */
+  .product-thumb {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .product-thumb:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Ensure thumbnails wrap and stay inside viewport */
   @media (max-width: 767px) {
+    .product-thumbnails {
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .product-detail-info {
+      align-items: center;
+      text-align: center;
+    }
+
     .product-detail {
       flex-direction: column;
       align-items: center;
-      margin-top: 5rem; /* reduce if you want less top gap */
-    }
-  
-    .product-detail-image {
-      width: 80%;
-      max-width: 400px;
-      height: auto; /* let image height adjust */
-    }
-  
-    .product-thumbnails {
-      flex-direction: row;
-      margin-top: 1rem;
-      gap: 0.5rem;
+      padding: 1rem;
+      padding-top: 50px;
     }
   
     .product-thumb {
-      width: 80px;
-      height: 80px;
-    }
-  
-    .product-detail-info {
-      width: 100%;
-      text-align: center;
-      align-items: center;
-      margin-top: 1rem;
-    }
-  }
-  
-  /* Medium Screens (768px–1199px) */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .product-detail {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 2rem;
-      max-width: 1000px; /* or 100% if you prefer */
-      margin: 3rem auto; /* adjust top gap as needed */
-    }
-  
-    .product-detail-image {
-      width: 350px;
-      height: 525px; /* proportionally smaller than 400×600 */
-    }
-  
-    .product-thumbnails {
-      flex-direction: row;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-  
-    .product-thumb {
-      width: 100px;
+      width: 70px;
       height: 100px;
     }
+  }
+
+
   
-    .product-detail-info {
-      max-width: 500px;
-      text-align: left;
-      align-items: flex-start;
-      margin-top: 0;
+
+  @media (min-width: 1400px) {
+    .carousel-track {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
   
-  /* Large Screens (>= 1200px) */
-  @media (min-width: 1200px) {
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    .carousel-track {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (min-width: 900px) and (max-width: 1199px) {
+    .carousel-track {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 600px) and (max-width: 899px) {
+    .carousel-track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
     .product-detail {
-      /* Keep horizontal layout, use the full width nicely */
-      flex-direction: row;
-      justify-content: space-between;
-      max-width: 1200px; /* or 100% if you prefer */
-      margin-top: 5%; /* optional to reduce empty space up top */
+      flex-direction: column;
+      align-items: center;
     }
   
-    .product-thumbnails {
-      flex-direction: row;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-  
-    .product-thumb {
-      width: 150px;
-      height: 150px;
+    .product-detail-image {
+      width: 90%;
+      max-width: 400px;
     }
   
     .product-detail-info {
-      max-width: 600px;
-      text-align: left;
-      align-items: flex-start;
-      margin-top: 0;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .product-thumbnails {
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 599px) {
+    .carousel-track {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
   

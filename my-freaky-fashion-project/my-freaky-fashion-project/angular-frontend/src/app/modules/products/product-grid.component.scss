@@ -19,10 +19,10 @@
     }
   }
   
-  /* Product card styling */
   .product-card {
     width: 100%;
     max-width: 500px;
+    padding-top: 15%;
     text-align: center;
     box-sizing: border-box;
     background-color: #fff;
@@ -31,15 +31,24 @@
     p {
       overflow-wrap: break-word;
     }
+  
     h2 {
       margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+  
+      // ⬆️ Larger font for product name
+      font-size: 1.5rem;
     }
+  
+    a {
+      text-decoration: none; // ⛔ Remove underline from links
+      color: inherit;        // ✅ Use default text color unless overridden
+    }
+  
     p {
       font-weight: bold;
       padding-bottom: 0.5rem;
     }
-  }
+  }  
   
   /* Product image container */
   .product-image {

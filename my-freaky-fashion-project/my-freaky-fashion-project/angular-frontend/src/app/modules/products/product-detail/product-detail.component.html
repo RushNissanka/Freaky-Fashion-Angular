@@ -45,27 +45,32 @@
   </div>
 </section>
 
-<!-- Related products (simplified carousel) -->
+<!-- Related products (responsive carousel) -->
 <section class="related-products">
   <h2>Liknande produkter</h2>
+
   <div *ngIf="relatedProducts.length === 0">
     Inga relaterade produkter att visa.
   </div>
+
   <div *ngIf="relatedProducts.length > 0" class="carousel">
-    <!-- Previous slide button -->
+    <!-- Previous button -->
     <button class="prev-btn" (click)="prevSlide()">‹</button>
 
-    <!-- Display the currently active slide -->
-    <div class="carousel-slide">
-      <a [routerLink]="['/products', relatedProducts[currentSlide].slug]">
-        <img [src]="relatedProducts[currentSlide].imageUrl || '/placeholder.png'"
-             [alt]="relatedProducts[currentSlide].name" class="carousel-img">
-        <h4>{{ relatedProducts[currentSlide].name }}</h4>
-        <p>{{ relatedProducts[currentSlide].price }} SEK</p>
-      </a>
+    <!-- Carousel track for visible slides -->
+    <div class="carousel-track">
+      <div class="carousel-slide" *ngFor="let product of visibleProducts">
+        <a [routerLink]="['/products', product.slug]">
+          <img [src]="product.imageUrl || '/placeholder.png'"
+               [alt]="product.name"
+               class="carousel-img">
+          <h4>{{ product.name }}</h4>
+          <p>{{ product.price }} SEK</p>
+        </a>
+      </div>
     </div>
 
-    <!-- Next slide button -->
+    <!-- Next button -->
     <button class="next-btn" (click)="nextSlide()">›</button>
   </div>
 </section>
